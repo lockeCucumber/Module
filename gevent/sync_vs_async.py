@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import gevent
-import random
+import datetime
 
 def task(gid):
-    gevent.sleep(random.randint(0, 2))
+    gevent.sleep(1)
     print 'task {} done'.format(gid)
 
 def synchronous():
@@ -15,6 +15,11 @@ def asynchronous():
     gevent.joinall(jobs)
 
 print 'begin sync'
+sync_start = datetime.datetime.now()
 synchronous()
+print 'sync spend {}'.format(datetime.datetime.now() - sync_start)
+
 print 'begin async'
+async_start = datetime.datetime.now()
 asynchronous()
+print 'async spend {}'.format(datetime.datetime.now() - async_start)
